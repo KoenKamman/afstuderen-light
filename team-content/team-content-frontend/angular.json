@@ -2,5 +2,266 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "travel-shell": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/travel-shell",
+      "sourceRoot": "projects/travel-shell/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/travel-shell",
+            "index": "projects/travel-shell/src/index.html",
+            "main": "projects/travel-shell/src/main.ts",
+            "polyfills": "projects/travel-shell/src/polyfills.ts",
+            "tsConfig": "projects/travel-shell/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/travel-shell/src/favicon.ico",
+              "projects/travel-shell/src/assets"
+            ],
+            "styles": [
+              "projects/travel-shell/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/travel-shell/src/environments/environment.ts",
+                  "with": "projects/travel-shell/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "travel-shell:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "travel-shell:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "travel-shell:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/travel-shell/src/test.ts",
+            "polyfills": "projects/travel-shell/src/polyfills.ts",
+            "tsConfig": "projects/travel-shell/tsconfig.spec.json",
+            "karmaConfig": "projects/travel-shell/karma.conf.js",
+            "assets": [
+              "projects/travel-shell/src/favicon.ico",
+              "projects/travel-shell/src/assets"
+            ],
+            "styles": [
+              "projects/travel-shell/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/travel-shell/tsconfig.app.json",
+              "projects/travel-shell/tsconfig.spec.json",
+              "projects/travel-shell/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/travel-shell/e2e/protractor.conf.js",
+            "devServerTarget": "travel-shell:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "travel-shell:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "travel-info": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/travel-info",
+      "sourceRoot": "projects/travel-info/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "ngx-build-plus:browser",
+          "options": {
+            "outputPath": "dist/travel-info",
+            "index": "projects/travel-info/src/index.html",
+            "main": "projects/travel-info/src/main.ts",
+            "polyfills": "projects/travel-info/src/polyfills.ts",
+            "tsConfig": "projects/travel-info/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/travel-info/src/favicon.ico",
+              "projects/travel-info/src/assets"
+            ],
+            "styles": [
+              "projects/travel-info/src/styles.scss"
+            ],
+            "scripts": [
+              "node_modules/rxjs/bundles/rxjs.umd.js",
+              "node_modules/@angular/core/bundles/core.umd.js",
+              "node_modules/@angular/common/bundles/common.umd.js",
+              "node_modules/@angular/common/bundles/common-http.umd.js",
+              "node_modules/@angular/compiler/bundles/compiler.umd.js",
+              "node_modules/@angular/elements/bundles/elements.umd.js",
+              "node_modules/@angular/platform-browser/bundles/platform-browser.umd.js",
+              "node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js",
+              {
+                "bundleName": "polyfill-webcomp-es5",
+                "input": "node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"
+              },
+              {
+                "bundleName": "polyfill-webcomp",
+                "input": "node_modules/@webcomponents/webcomponentsjs/bundles/webcomponents-sd-ce-pf.js"
+              }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/travel-info/src/environments/environment.ts",
+                  "with": "projects/travel-info/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "ngx-build-plus:dev-server",
+          "options": {
+            "browserTarget": "travel-info:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "travel-info:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "travel-info:build"
+          }
+        },
+        "test": {
+          "builder": "ngx-build-plus:karma",
+          "options": {
+            "main": "projects/travel-info/src/test.ts",
+            "polyfills": "projects/travel-info/src/polyfills.ts",
+            "tsConfig": "projects/travel-info/tsconfig.spec.json",
+            "karmaConfig": "projects/travel-info/karma.conf.js",
+            "assets": [
+              "projects/travel-info/src/favicon.ico",
+              "projects/travel-info/src/assets"
+            ],
+            "styles": [
+              "projects/travel-info/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/travel-info/tsconfig.app.json",
+              "projects/travel-info/tsconfig.spec.json",
+              "projects/travel-info/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/travel-info/e2e/protractor.conf.js",
+            "devServerTarget": "travel-info:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "travel-info:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "travel-shell"
 }

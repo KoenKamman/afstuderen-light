@@ -2,5 +2,145 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "travel-suggestions": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/travel-suggestions",
+      "sourceRoot": "projects/travel-suggestions/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "ngx-build-plus:browser",
+          "options": {
+            "outputPath": "dist/travel-suggestions",
+            "index": "projects/travel-suggestions/src/index.html",
+            "main": "projects/travel-suggestions/src/main.ts",
+            "polyfills": "projects/travel-suggestions/src/polyfills.ts",
+            "tsConfig": "projects/travel-suggestions/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/travel-suggestions/src/favicon.ico",
+              "projects/travel-suggestions/src/assets"
+            ],
+            "styles": [
+              "projects/travel-suggestions/src/styles.scss"
+            ],
+            "scripts": [
+              "node_modules/rxjs/bundles/rxjs.umd.js",
+              "node_modules/@angular/core/bundles/core.umd.js",
+              "node_modules/@angular/common/bundles/common.umd.js",
+              "node_modules/@angular/common/bundles/common-http.umd.js",
+              "node_modules/@angular/compiler/bundles/compiler.umd.js",
+              "node_modules/@angular/elements/bundles/elements.umd.js",
+              "node_modules/@angular/platform-browser/bundles/platform-browser.umd.js",
+              "node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js",
+              {
+                "bundleName": "polyfill-webcomp-es5",
+                "input": "node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"
+              },
+              {
+                "bundleName": "polyfill-webcomp",
+                "input": "node_modules/@webcomponents/webcomponentsjs/bundles/webcomponents-sd-ce-pf.js"
+              }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/travel-suggestions/src/environments/environment.ts",
+                  "with": "projects/travel-suggestions/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "ngx-build-plus:dev-server",
+          "options": {
+            "browserTarget": "travel-suggestions:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "travel-suggestions:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "travel-suggestions:build"
+          }
+        },
+        "test": {
+          "builder": "ngx-build-plus:karma",
+          "options": {
+            "main": "projects/travel-suggestions/src/test.ts",
+            "polyfills": "projects/travel-suggestions/src/polyfills.ts",
+            "tsConfig": "projects/travel-suggestions/tsconfig.spec.json",
+            "karmaConfig": "projects/travel-suggestions/karma.conf.js",
+            "assets": [
+              "projects/travel-suggestions/src/favicon.ico",
+              "projects/travel-suggestions/src/assets"
+            ],
+            "styles": [
+              "projects/travel-suggestions/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/travel-suggestions/tsconfig.app.json",
+              "projects/travel-suggestions/tsconfig.spec.json",
+              "projects/travel-suggestions/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/travel-suggestions/e2e/protractor.conf.js",
+            "devServerTarget": "travel-suggestions:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "travel-suggestions:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "travel-suggestions"
 }

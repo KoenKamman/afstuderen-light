@@ -2,5 +2,145 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "travel-map": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/travel-map",
+      "sourceRoot": "projects/travel-map/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "ngx-build-plus:browser",
+          "options": {
+            "outputPath": "dist/travel-map",
+            "index": "projects/travel-map/src/index.html",
+            "main": "projects/travel-map/src/main.ts",
+            "polyfills": "projects/travel-map/src/polyfills.ts",
+            "tsConfig": "projects/travel-map/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/travel-map/src/favicon.ico",
+              "projects/travel-map/src/assets"
+            ],
+            "styles": [
+              "projects/travel-map/src/styles.scss"
+            ],
+            "scripts": [
+              "node_modules/rxjs/bundles/rxjs.umd.js",
+              "node_modules/@angular/core/bundles/core.umd.js",
+              "node_modules/@angular/common/bundles/common.umd.js",
+              "node_modules/@angular/common/bundles/common-http.umd.js",
+              "node_modules/@angular/compiler/bundles/compiler.umd.js",
+              "node_modules/@angular/elements/bundles/elements.umd.js",
+              "node_modules/@angular/platform-browser/bundles/platform-browser.umd.js",
+              "node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js",
+              {
+                "bundleName": "polyfill-webcomp-es5",
+                "input": "node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"
+              },
+              {
+                "bundleName": "polyfill-webcomp",
+                "input": "node_modules/@webcomponents/webcomponentsjs/bundles/webcomponents-sd-ce-pf.js"
+              }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/travel-map/src/environments/environment.ts",
+                  "with": "projects/travel-map/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "ngx-build-plus:dev-server",
+          "options": {
+            "browserTarget": "travel-map:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "travel-map:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "travel-map:build"
+          }
+        },
+        "test": {
+          "builder": "ngx-build-plus:karma",
+          "options": {
+            "main": "projects/travel-map/src/test.ts",
+            "polyfills": "projects/travel-map/src/polyfills.ts",
+            "tsConfig": "projects/travel-map/tsconfig.spec.json",
+            "karmaConfig": "projects/travel-map/karma.conf.js",
+            "assets": [
+              "projects/travel-map/src/favicon.ico",
+              "projects/travel-map/src/assets"
+            ],
+            "styles": [
+              "projects/travel-map/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/travel-map/tsconfig.app.json",
+              "projects/travel-map/tsconfig.spec.json",
+              "projects/travel-map/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/travel-map/e2e/protractor.conf.js",
+            "devServerTarget": "travel-map:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "travel-map:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "travel-map"
 }
