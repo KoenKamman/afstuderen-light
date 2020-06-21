@@ -1,0 +1,23 @@
+version: "3.3"
+
+services:
+    travel-info-frontend:
+        image: travel-info-frontend:latest
+        container_name: travel-info-frontend
+        ports: 
+            - "8080:80/tcp"
+    travel-map-frontend:
+        image: travel-map-frontend:latest
+        container_name: travel-map-frontend
+        ports: 
+            - "8081:80/tcp"
+    travel-suggestions-frontend:
+        image: travel-suggestions-frontend:latest
+        container_name: travel-suggestions-frontend
+        ports: 
+            - "8082:80/tcp"
+    travel-shell-frontend:
+        image: travel-shell-frontend:latest
+        container_name: travel-shell-frontend
+        ports: 
+            - "8083:80/tcp"

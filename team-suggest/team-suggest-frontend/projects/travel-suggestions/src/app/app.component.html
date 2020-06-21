@@ -1,1 +1,16 @@
-<p>travel-suggestions</p>
+<link rel="stylesheet" href="http://localhost:8082/styles.css" type="text/css">
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Suggestions</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Places you might like if you like {{location}}</h6>
+                    <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let suggestion of suggestions">{{suggestion}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

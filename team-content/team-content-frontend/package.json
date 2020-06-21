@@ -8,10 +8,16 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall:bak": "",
+    "postinstall:bak": "ngcc",
     "postinstall": "ngcc",
-    "build:travel-info:externals": "ng build --extra-webpack-config projects/travel-info/webpack.externals.js --prod --project travel-info --single-bundle --outputHashing none",
-    "http-server:travel-info": "http-server ./dist/travel-info -p 8080 --cors='localhost:4200'"
+    "build:travel-info:externals": "ng build --extra-webpack-config projects/travel-info/webpack.externals.js --prod --project travel-info --single-bundle --outputHashing none  --bundle-styles false --keepStyles false",
+    "http-server:travel-info": "http-server ./dist/travel-info -p 8080 --cors='localhost:4200'",
+    "watch:travel-info": "watch \"npm run build:travel-info:externals\" ./projects/travel-info/src",
+    "serve:travel-info": "npm-run-all --parallel watch:travel-info http-server:travel-info",
+    "build:travel-shell:externals": "ng build --extra-webpack-config projects/travel-shell/webpack.externals.js --prod --project travel-shell --single-bundle --outputHashing none  --bundle-styles false --keepStyles false",
+    "http-server:travel-shell": "http-server ./dist/travel-shell -p 4200 --cors='localhost:4200'",
+    "watch:travel-shell": "watch \"npm run build:travel-shell:externals\" ./projects/travel-shell/src",
+    "serve:travel-shell": "npm-run-all --parallel watch:travel-shell http-server:travel-shell"
   },
   "private": true,
   "dependencies": {
@@ -47,9 +53,11 @@
     "karma-jasmine": "~3.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
     "ngx-build-plus": "^9.0.6",
+    "npm-run-all": "^4.1.5",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.8.3",
+    "watch": "^1.0.2"
   }
 }

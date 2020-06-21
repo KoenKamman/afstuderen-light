@@ -5,10 +5,13 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 if (environment.production) {
-  enableProdMode();
+  try {
+    enableProdMode();
+  } catch {
+    console.warn('Platform already set up, ignoring enableProdMode().');
+  }
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule, {
-  ngZone: 'noop',
-  defaultEncapsulation: ViewEncapsulation.ShadowDom
+  ngZone: 'noop'
 }).catch(err => console.error(err));

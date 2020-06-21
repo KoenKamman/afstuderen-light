@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ChangeDetectorRef, Input } from '@angular/core';
 
 @Component({
   selector: 'app-info-card',
@@ -6,10 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./info-card.component.scss']
 })
 export class InfoCardComponent implements OnInit {
+  private readonly elementRef: ElementRef;
+  @Input() public location = '';
+  @Input() public resource = '';
 
-  constructor() { }
+  constructor(element: ElementRef, cd: ChangeDetectorRef) {
+    this.elementRef = element;
+  }
 
   ngOnInit(): void {
+  }
+
+  public buttonClicked() {
+    this.elementRef.nativeElement.dispatchEvent(new CustomEvent('customEvent', {
+      bubbles: true
+    }));
   }
 
 }

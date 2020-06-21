@@ -1,31 +1,30 @@
-import { Component, ViewEncapsulation, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ElementRef } from '@angular/core';
 import * as leaflet from 'leaflet';
 import { LeafletMouseEvent, Map } from 'leaflet';
 import 'leaflet-control-geocoder';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'app-leaflet',
+  templateUrl: './leaflet.component.html',
+  styleUrls: ['./leaflet.component.scss'],
   encapsulation: ViewEncapsulation.ShadowDom
 })
-export class AppComponent {
-  private elementRef: ElementRef;
+export class LeafletComponent implements OnInit {
   private map: Map;
 
-  public constructor(element: ElementRef) {
-    // this.elementRef = element;
-    // this.loadMap();
-    // this.loadTiles();
-    // this.loadGeocoder();
+  constructor(private elementRef: ElementRef) { }
+
+  public ngOnInit(): void {
+    this.loadMap();
+    this.loadTiles();
+    this.loadGeocoder();
   }
 
   private loadMap(): void {
     const shadowRoot = this.elementRef.nativeElement.shadowRoot;
-    const container = shadowRoot.getElementById('mapContainer');
     const mapdiv = document.createElement('div');
     mapdiv.setAttribute('id', 'map');
-    container.appendChild(mapdiv);
+    shadowRoot.appendChild(mapdiv);
     this.map = leaflet.map(mapdiv, {
       center: [51.505, -0.09],
       zoom: 13
@@ -46,6 +45,7 @@ export class AppComponent {
       geocoder.reverse(event.latlng, this.map.options.crs?.scale(this.map.getZoom()), (results: any) => {
         this.elementRef.nativeElement.dispatchEvent(new CustomEvent('locationSelected', {
           bubbles: true,
+          composed: true,
           detail: {
             name: results[0].name
           }
